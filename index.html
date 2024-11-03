@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuickCode</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-solarizedlight.css" rel="stylesheet" />
+
     <style>
         ::selection {
             color: #4A4947;
@@ -81,71 +82,8 @@
             background: none;
         }
 
-        .token.comment,
-        .token.prolog,
-        .token.doctype,
-        .token.cdata {
-            color: #379777; /* green */
-            font-style: italic;
-        }
-
-        .token.punctuation {
-            color: #EB3678; /* pink */
-        }
-
-        .token.property,
-        .token.tag,
-        .token.boolean,
-        .token.number,
-        .token.constant,
-        .token.symbol,
-        .token.deleted {
-            color: #A02334; /* red */
-        }
-
-        .token.selector,
-        .token.attr-name,
-        .token.string,
-        .token.char,
-        .token.builtin,
-        .token.inserted {
-            color: #0D7C66; /* emerald green */
-            font-weight: bold;
-        }
-
-        .token.operator {
-            color: #8E3E63; /* purple */
-        }
-
-        .token.entity,
-        .token.url,
-        .language-css .token.string,
-        .style .token.string {
-            color: #8E3E63; /* purple */
-            font-weight: bold;
-        }
-
-        .token.atrule,
-        .token.attr-value,
-        .token.keyword {
-            color: #180161; /* deep purple */
-            font-weight: bold;
-        }
-
-        .token.function,
-        .token.class-name {
-            color: #FB773C; /* orange */
-        }
-
-        .token.regex,
-        .token.important,
-        .token.variable {
-            color: #BDE8CA; /* light teal */
-        }
-
-        .token.plain-text {
-            color: #0B192C; /* dark blue */
-        }
+        /*
+        For language button. Currently disabled
 
         .lang-button {
             background-color: #16423C;
@@ -173,6 +111,7 @@
             bottom: 10px;
             left: 10px;
         }
+        */
     </style>
 </head>
 <body>
@@ -192,7 +131,7 @@
         <textarea class="code-input" spellcheck="false"></textarea>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
     <script>
         // JavaScript remains exactly the same
         const textarea = document.querySelector('.code-input');
