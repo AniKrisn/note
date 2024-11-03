@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note with Syntax Highlighting</title>
+    <title>Note</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
     <style>
         /* Full-page background styling */
@@ -13,8 +13,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #1A3636; /* Charcoal background */
-            font-family: Arial, sans-serif;
+            background-color: #1A3636;
+            font-family: monospace;
         }
 
         /* Notepad box styling */
@@ -39,7 +39,6 @@
             border: none;
             resize: none;
             font-size: 16px;
-            font-family: monospace;
             line-height: 1.5;
             color: #0B192C; /* Match text color */
             caret-color: #0B192C; /* Caret color */
@@ -70,6 +69,11 @@
     </style>
 </head>
 <body>
+    <div style="font-size: 12px; position: absolute; top: 10px; left: 10px; color: #fbf7f3;">
+        Ctrl + L to switch to Note <br>
+        <b>(doesn't save!)</b>
+    </div>
+
 
     <div class="notepad-container">
         <!-- Display highlighted code -->
@@ -127,6 +131,14 @@
         textarea.addEventListener('scroll', () => {
             highlightedCode.parentElement.scrollTop = textarea.scrollTop;
             highlightedCode.parentElement.scrollLeft = textarea.scrollLeft;
+        });
+
+        // Navigate to note.html on Ctrl+L key press
+        document.addEventListener('keydown', (event) => {
+            if (event.ctrlKey && event.key === 'l') {
+                event.preventDefault();
+                window.location.href = 'note.html';
+            }
         });
     </script>
 </body>

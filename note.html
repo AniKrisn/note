@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note</title>
+    <style>
+        /* Full-page background styling */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1A3636;
+            font-family: monospace;
+        }
+        /* Other colours
+         #1A3636
+         #16423C */
+
+        /* Notepad box styling */
+        .notepad-container {
+            width: 80%;
+            height: 80%;
+            max-width: 600px;
+            background-color: #fbf7f3;
+            border-radius: 3px;
+            overflow: hidden;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            opacity: 90%;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            background-color: #fbf7f3;
+            border: none;
+            resize: none;
+            font-size: 16px;
+            line-height: 1.5;
+            outline: none;
+            color: #0B192C;
+        }
+    </style>
+    <script>
+        document.addEventListener('keydown', (event) => {
+            if (event.ctrlKey && event.key === 'l') {
+                event.preventDefault();
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</head>
+<body>
+    <div style="font-size: 12px; position: absolute; top: 10px; left: 10px; color: #fbf7f3;">
+        Ctrl + L to switch to Note <br>
+        <b>(doesn't save!)</b>
+    </div>
+
+
+    <div class="notepad-container">
+        <textarea></textarea>
+    </div>
+
+</body>
+</html>
