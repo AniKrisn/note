@@ -212,8 +212,36 @@
             if (closeChar) {
                 event.preventDefault();
                 const { selectionStart, selectionEnd, value } = textarea;
-                textarea.value = value.slice(0, selectionStart) + openChar + closeChar + value.slice(selectionEnd);
-                textarea.setSelectionRange(selectionStart + 1, selectionStart + 1);
+                
+                // Get the current line's content up to the cursor
+                const currentLine = value.slice(0, selectionStart).split('\n').pop();
+                // Extract leading whitespace
+                const indentation = currentLine.match(/^\s*/)[0];
+                
+                // If we're opening a block (curly brace)
+                if (openChar === '{') {
+                    // Add new line and indentation after the closing brace
+                    textarea.value = 
+                        value.slice(0, selectionStart) + 
+                        openChar + 
+                        '\n' + indentation + '  ' + // 2 spaces indent to match your tab size
+                        '\n' + indentation + 
+                        closeChar + 
+                        value.slice(selectionEnd);
+                    // Place cursor after the indented new line
+                    textarea.setSelectionRange(
+                        selectionStart + 2 + indentation.length + 2,
+                        selectionStart + 2 + indentation.length + 2
+                    );
+                } else {
+                    // Normal paired character insertion
+                    textarea.value = 
+                        value.slice(0, selectionStart) + 
+                        openChar + 
+                        closeChar + 
+                        value.slice(selectionEnd);
+                    textarea.setSelectionRange(selectionStart + 1, selectionStart + 1);
+                }
                 updateHighlighting();
             } else if (event.key === 'Backspace') {
                 const { selectionStart, selectionEnd, value } = textarea;
@@ -223,6 +251,12 @@
                     textarea.setSelectionRange(selectionStart - 1, selectionStart - 1);
                     updateHighlighting();
                 }
+            } else if (event.key === 'Tab') {
+                event.preventDefault();
+                const { selectionStart, selectionEnd, value } = textarea;
+                textarea.value = value.slice(0, selectionStart) + '  ' + value.slice(selectionEnd); // Insert two spaces
+                textarea.setSelectionRange(selectionStart + 2, selectionStart + 2); // Move cursor after the spaces
+                updateHighlighting();
             }
         });
 
@@ -240,6 +274,8 @@
             highlightedCode.parentElement.scrollTop = textarea.scrollTop;
             highlightedCode.parentElement.scrollLeft = textarea.scrollLeft;
         });
+
+        
 
         document.addEventListener('keydown', (event) => {
             if (event.ctrlKey && event.key === 'l') {
