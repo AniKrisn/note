@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note</title>
+    <title>QuickNote</title>
     <style>
         ::selection {
             color: #4A4947;
@@ -64,7 +64,7 @@
                 sessionStorage.setItem('textarea', textarea.value);
             });
 
-            
+
             document.addEventListener('keydown', (event) => {
                 if (event.ctrlKey && event.key === 'l') {
                     event.preventDefault();

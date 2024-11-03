@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note</title>
+    <title>QuickCode</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
     <style>
         ::selection {
@@ -43,7 +43,7 @@
             resize: none;
             font-size: 16px;
             line-height: 1.5;
-            color: #0B192C;
+            color: transparent;
             caret-color: #0B192C;
             outline: none;
             position: absolute;
@@ -81,17 +81,16 @@
             background: none;
         }
 
-        /* Super vibrant syntax highlighting theme */
         .token.comment,
         .token.prolog,
         .token.doctype,
         .token.cdata {
-            color: #0066ff;
+            color: #379777; /* green */
             font-style: italic;
         }
 
         .token.punctuation {
-            color: #FF1493;  /* Deep pink */
+            color: #EB3678; /* pink */
         }
 
         .token.property,
@@ -101,7 +100,7 @@
         .token.constant,
         .token.symbol,
         .token.deleted {
-            color: #FF0000;  /* Bright red */
+            color: #A02334; /* red */
         }
 
         .token.selector,
@@ -110,35 +109,42 @@
         .token.char,
         .token.builtin,
         .token.inserted {
-            color: #008000;  /* Pure green */
+            color: #0D7C66; /* emerald green */
             font-weight: bold;
         }
 
-        .token.operator,
+        .token.operator {
+            color: #8E3E63; /* purple */
+        }
+
         .token.entity,
         .token.url,
         .language-css .token.string,
         .style .token.string {
-            color: #9400D3;  /* Violet */
+            color: #8E3E63; /* purple */
             font-weight: bold;
         }
 
         .token.atrule,
         .token.attr-value,
         .token.keyword {
-            color: #0000FF;  /* Pure blue */
+            color: #180161; /* deep purple */
             font-weight: bold;
         }
 
         .token.function,
         .token.class-name {
-            color: #FF4500;  /* Orange red */
+            color: #FB773C; /* orange */
         }
 
         .token.regex,
         .token.important,
         .token.variable {
-            color: #FF00FF;  /* Magenta */
+            color: #BDE8CA; /* light teal */
+        }
+
+        .token.plain-text {
+            color: #0B192C; /* dark blue */
         }
 
         .lang-button {
@@ -175,10 +181,10 @@
     </div>
 
     <div class="button-container">
-        <button class="lang-button" onclick="changeLanguage('clike', this)">C</button>
+        <!-- button class="lang-button" onclick="changeLanguage('clike', this)">C</button>
         <button class="lang-button" onclick="changeLanguage('js', this)">JavaScript</button>
-        <button class="lang-button" onclick="changeLanguage('py', this)">Python</button>
-        <button class="lang-button" onclick="changeLanguage('rb', this)">Ruby</button>
+        <button class="lang-button" onclick="changeLanguage('python', this)">Python</button>
+        <button class="lang-button" onclick="changeLanguage('rb', this)">Ruby</button -->
     </div>
 
     <div class="notepad-container">
