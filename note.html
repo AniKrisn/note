@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Note</title>
     <style>
+        ::selection {
+            color: #4A4947;
+            background: #D8D2C2;
+        }
+
         /* Full-page background styling */
         body {
             margin: 0;
@@ -45,18 +50,33 @@
         }
     </style>
     <script>
-        document.addEventListener('keydown', (event) => {
-            if (event.ctrlKey && event.key === 'l') {
-                event.preventDefault();
-                window.location.href = 'index.html';
+        document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.querySelector('textarea');
+
+            // Load saved content from sessionStorage
+            const savedContent = sessionStorage.getItem('textarea');
+            if (savedContent) {
+                textarea.value = savedContent;
             }
+
+            // Save content to sessionStorage on input
+            textarea.addEventListener('input', () => {
+                sessionStorage.setItem('textarea', textarea.value);
+            });
+
+            
+            document.addEventListener('keydown', (event) => {
+                if (event.ctrlKey && event.key === 'l') {
+                    event.preventDefault();
+                    window.location.href = 'index.html';
+                }
+            });
         });
     </script>
 </head>
 <body>
-    <div style="font-size: 12px; position: absolute; top: 10px; left: 10px; color: #fbf7f3;">
-        Ctrl + L for Code <br>
-        <b>(doesn't save!)</b>
+    <div style="font-size: 13px; position: absolute; top: 10px; left: 10px; color: #fbf7f3;">
+        <b>Ctrl + L</b> for Code <br>
     </div>
 
 

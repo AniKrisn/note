@@ -6,6 +6,11 @@
     <title>Note</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
     <style>
+        ::selection {
+            color: #4A4947;
+            background: #D8D2C2;
+        }
+
         /* Previous styles remain the same until the syntax highlighting section */
         body {
             margin: 0;
@@ -165,10 +170,8 @@
     </style>
 </head>
 <body>
-    <!-- Rest of the HTML remains exactly the same -->
-    <div style="font-size: 12px; position: absolute; top: 10px; left: 10px; color: #fbf7f3;">
-        Ctrl + L for Note <br>
-        <b>(doesn't save!)</b>
+    <div style="font-size: 13px; position: absolute; top: 10px; left: 10px; color: #fbf7f3;">
+        <b>Ctrl + L</b> for Note <br>
     </div>
 
     <div class="button-container">
@@ -180,7 +183,7 @@
 
     <div class="notepad-container">
         <pre class="highlighted-code"><code class="language-javascript"></code></pre>
-        <textarea class="code-input" placeholder=""></textarea>
+        <textarea class="code-input" spellcheck="false"></textarea>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
@@ -195,7 +198,21 @@
             Prism.highlightElement(highlightedCode);
         }
 
+        window.addEventListener('load', () => {
+            const savedContent = sessionStorage.getItem('codeContent');
+            if (savedContent) {
+                textarea.value = savedContent;
+                updateHighlighting();
+            }
+        });
+
+        textarea.addEventListener('input', () => {
+            updateHighlighting();
+            sessionStorage.setItem('codeContent', textarea.value);
+        });
+
         textarea.addEventListener('input', updateHighlighting);
+
 
         const autocompletePairs = {
             '(': ')',
