@@ -6,7 +6,7 @@
     <title>Note</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
     <style>
-        /* Full-page background styling */
+        /* Previous styles remain the same until the syntax highlighting section */
         body {
             margin: 0;
             height: 100vh;
@@ -17,7 +17,6 @@
             font-family: monospace;
         }
 
-        /* Notepad box styling */
         .notepad-container {
             width: 80%;
             height: 80%;
@@ -31,7 +30,6 @@
             position: relative;
         }
 
-        /* Textarea styling */
         .code-input {
             width: 100%;
             height: 100%;
@@ -40,8 +38,8 @@
             resize: none;
             font-size: 16px;
             line-height: 1.5;
-            color: #0B192C; /* Match text color */
-            caret-color: #0B192C; /* Caret color */
+            color: #0B192C;
+            caret-color: #0B192C;
             outline: none;
             position: absolute;
             top: 0;
@@ -51,22 +49,93 @@
             overflow-wrap: break-word;
             z-index: 1;
             background-color: transparent;
+            font-family: monospace;
         }
 
-        /* Highlighted code display */
         .highlighted-code {
             width: 100%;
             height: 100%;
-            font-family: monospace;
             font-size: 16px;
             line-height: 1.5;
             white-space: pre-wrap;
             overflow-wrap: break-word;
             pointer-events: none;
             color: #0B192C;
+            margin: 0;
+            padding: 16px;
         }
 
-        /* Styling for language selector buttons */
+        pre[class*="language-"] {
+            margin: 0;
+            padding: 0;
+            background: none;
+        }
+
+        code[class*="language-"] {
+            padding: 0;
+            background: none;
+        }
+
+        /* Super vibrant syntax highlighting theme */
+        .token.comment,
+        .token.prolog,
+        .token.doctype,
+        .token.cdata {
+            color: #0066ff;
+            font-style: italic;
+        }
+
+        .token.punctuation {
+            color: #FF1493;  /* Deep pink */
+        }
+
+        .token.property,
+        .token.tag,
+        .token.boolean,
+        .token.number,
+        .token.constant,
+        .token.symbol,
+        .token.deleted {
+            color: #FF0000;  /* Bright red */
+        }
+
+        .token.selector,
+        .token.attr-name,
+        .token.string,
+        .token.char,
+        .token.builtin,
+        .token.inserted {
+            color: #008000;  /* Pure green */
+            font-weight: bold;
+        }
+
+        .token.operator,
+        .token.entity,
+        .token.url,
+        .language-css .token.string,
+        .style .token.string {
+            color: #9400D3;  /* Violet */
+            font-weight: bold;
+        }
+
+        .token.atrule,
+        .token.attr-value,
+        .token.keyword {
+            color: #0000FF;  /* Pure blue */
+            font-weight: bold;
+        }
+
+        .token.function,
+        .token.class-name {
+            color: #FF4500;  /* Orange red */
+        }
+
+        .token.regex,
+        .token.important,
+        .token.variable {
+            color: #FF00FF;  /* Magenta */
+        }
+
         .lang-button {
             background-color: #16423C;
             color: #ffffff;
@@ -93,16 +162,15 @@
             bottom: 10px;
             left: 10px;
         }
-
     </style>
 </head>
 <body>
+    <!-- Rest of the HTML remains exactly the same -->
     <div style="font-size: 12px; position: absolute; top: 10px; left: 10px; color: #fbf7f3;">
         Ctrl + L for Note <br>
         <b>(doesn't save!)</b>
     </div>
 
-    <!-- Language selection buttons -->
     <div class="button-container">
         <button class="lang-button" onclick="changeLanguage('clike', this)">C</button>
         <button class="lang-button" onclick="changeLanguage('js', this)">JavaScript</button>
@@ -110,27 +178,25 @@
         <button class="lang-button" onclick="changeLanguage('rb', this)">Ruby</button>
     </div>
 
-
     <div class="notepad-container">
-        <!-- Display highlighted code -->
         <pre class="highlighted-code"><code class="language-javascript"></code></pre>
-        <!-- Input for typing code -->
         <textarea class="code-input" placeholder=""></textarea>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
     <script>
+        // JavaScript remains exactly the same
         const textarea = document.querySelector('.code-input');
         const highlightedCode = document.querySelector('.highlighted-code code');
         let currentLanguage = 'javascript';
 
-        // Update syntax highlighting as you type
-        textarea.addEventListener('input', () => {
+        function updateHighlighting() {
             highlightedCode.textContent = textarea.value;
-            Prism.highlightElement(highlightedCode);  // Apply Prism syntax highlighting
-        });
+            Prism.highlightElement(highlightedCode);
+        }
 
-        // Autocomplete pairs for brackets, quotes
+        textarea.addEventListener('input', updateHighlighting);
+
         const autocompletePairs = {
             '(': ')',
             '{': '}',
@@ -139,7 +205,6 @@
             "'": "'"
         };
 
-        // Autocomplete functionality
         textarea.addEventListener('keydown', (event) => {
             const openChar = event.key;
             const closeChar = autocompletePairs[openChar];
@@ -147,44 +212,35 @@
             if (closeChar) {
                 event.preventDefault();
                 const { selectionStart, selectionEnd, value } = textarea;
-
-                // Insert open and close characters, place cursor between them
                 textarea.value = value.slice(0, selectionStart) + openChar + closeChar + value.slice(selectionEnd);
                 textarea.setSelectionRange(selectionStart + 1, selectionStart + 1);
+                updateHighlighting();
             } else if (event.key === 'Backspace') {
                 const { selectionStart, selectionEnd, value } = textarea;
-
-                // Check for paired characters to delete both
                 if (selectionStart === selectionEnd && autocompletePairs[value[selectionStart - 1]] === value[selectionStart]) {
                     event.preventDefault();
                     textarea.value = value.slice(0, selectionStart - 1) + value.slice(selectionStart + 1);
                     textarea.setSelectionRange(selectionStart - 1, selectionStart - 1);
+                    updateHighlighting();
                 }
             }
         });
 
-        // Change language for Prism highlighting
         function changeLanguage(language, button) {
             currentLanguage = language;
-            highlightedCode.className = `language-${language}`; // Update language class
-            Prism.highlightElement(highlightedCode); // Re-run Prism highlighting
+            highlightedCode.className = `language-${language}`;
+            Prism.highlightElement(highlightedCode);
 
-            // Remove active class from all buttons
             const buttons = document.querySelectorAll('.lang-button');
             buttons.forEach(btn => btn.classList.remove('active'));
-
-            // Add active class to the clicked button
             button.classList.add('active');
         }
 
-
-        // Keep scroll positions synchronized
         textarea.addEventListener('scroll', () => {
             highlightedCode.parentElement.scrollTop = textarea.scrollTop;
             highlightedCode.parentElement.scrollLeft = textarea.scrollLeft;
         });
 
-        // Navigate to note.html on Ctrl+L key press
         document.addEventListener('keydown', (event) => {
             if (event.ctrlKey && event.key === 'l') {
                 event.preventDefault();
